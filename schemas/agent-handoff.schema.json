@@ -11,7 +11,7 @@
     "goal": { "type": "string" },
     "parentMessageId": { "type": "string" },
     "depth": { "type": "integer", "minimum": 0 },
-    "maxDepth": { "type": "integer", "minimum": 0 },
+    "maxDepth": { "type": "integer", "minimum": 0 }, "revision": { "type": "integer", "minimum": 0 }, "maxRevisions": { "type": "integer", "minimum": 0, "maximum": 3 },
     "inputRefs": { "type": "array", "items": { "type": "string" } },
     "expectedOutput": { "type": "string" },
     "terminalOperation": { "type": ["string", "null"] }

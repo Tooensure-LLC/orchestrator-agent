@@ -27,7 +27,7 @@ When FORCE applies or AUTO selects this workflow, state a compact brief before r
 
 ## Design pattern
 
-Hub-and-spoke: this skill is the only delegator (orchestrator-workers). Roles never call each other; each returns its result here and this skill builds the next input. The fixed order PLAN, MAKE, CHECK, REFLECT is a prompt chain with a gate: any non-PASS Checker result stops the cycle. CHECK is an independent evaluator. REFLECT proposes the next seed, which stays unexecuted until a new cycle is started. Use the simplest route that meets the brief.
+Hub-and-spoke: this skill is the only delegator (orchestrator-workers). Roles never call each other; each returns its result here and this skill builds the next input. The fixed order PLAN, MAKE, CHECK, REFLECT is a prompt chain with a gate. CHECK is an independent evaluator: PASS advances, HALT stops, and LOOP may trigger a bounded, separately authorized revision of MAKE (evaluator-optimizer). REFLECT proposes the next seed, which stays unexecuted until a new cycle is started. Use the simplest route that meets the brief.
 ## Required pre-action message
 
 Before routing work, emit the PMCR-O plugin mention first, then identify the role and intent, then print the namespaced command with its typed input. For example:
@@ -51,8 +51,19 @@ The command requires one JSON object conforming to `references/input.schema.json
 3. Invoke its catalogued command (`/pmcro:orchestrate` when supported; otherwise use the canonical host command) with `input: { raw_seed, context }`. Use its returned `true_intent`, assumptions, flags, unresolved questions, and evidence as the true-intent handoff. If it is unavailable, return `BLOCKED` instead of inventing intent.
 4. Resolve the independent `PLAN`, `MAKE`, `CHECK`, and `REFLECT` agent entries from the same catalog. Invoke each command with its own schema-validated `input` object, always carrying the unchanged `raw_seed` plus the required preceding result. Keep each role in its own conversation context; retain invocation and result evidence.
 5. Require the Checker to receive the plan and read-only Maker evidence in a fresh context. Do not claim independent security identity unless the host proves it.
-6. Stop at the first unavailable agent, authorization failure, invalid handoff, recursion limit, or non-PASS Checker result. Do not skip a phase.
-7. Invoke Reflect only after a Checker record. Preserve its one proposed next seed as unexecuted.
+6. Stop at the first unavailable agent, authorization failure, invalid handoff, or recursion limit. Act on the Checker verdict as follows: PASS goes to Reflect; HALT stops the cycle; LOOP may start one bounded revision (see Revision loop). Do not skip a phase.
+7. Invoke Reflect only after a Checker record: after PASS, or after a terminal LOOP or HALT record. Pass it the final verdict and evidence. Preserve its one proposed next seed as unexecuted.
+
+## Revision loop
+
+A Checker LOOP verdict means the work is fixable inside the same plan and authorized scope. The Orchestrator, never the Checker, may start one bounded revision:
+
+1. Allow at most `maxRevisions` revisions per run (default 2, hard cap 3). Carry `revision` and `maxRevisions` in the phase ledger.
+2. Build a new MAKE input from the unchanged `raw_seed`, the same `plan_ref`, and an `authorized_step` for the failing step. Narrow its `scope` to the Checker's failing checks. Never enlarge scope.
+3. Require a new `authorization_ref` from the user or an approval control for every revision. If it is absent, return BLOCKED with state `REVISION_REQUESTED` and wait.
+4. Send each new receipt to a fresh, read-only Checker context.
+5. Stop with status `partial` when `maxRevisions` is reached or two consecutive LOOP verdicts cite the same failing checks (no progress). A HALT verdict stops at once with status `halted`.
+6. Report the revision history in the final synthesis.
 
 ## Recursive calls
 

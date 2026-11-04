@@ -14,11 +14,15 @@ Use one independent conversation context per role. A task title uses the pattern
 
 ## Stop rules
 
-Stop when any required agent cannot be resolved or invoked, a handoff fails validation, authorization is absent, recursion reaches its depth limit without a terminal operation, or the Checker returns anything other than PASS. Reflect only after a Checker record. Do not treat a proposed next seed as executed work.
+Stop when any required agent cannot be resolved or invoked, a handoff fails validation, authorization is absent, recursion reaches its depth limit without a terminal operation, the Checker returns HALT, or a LOOP verdict cannot be revised under the revision loop below (retry limit reached, no progress, or no new authorization). Reflect only after a Checker record. Do not treat a proposed next seed as executed work.
+
+## Bounded revision loop
+
+Roles still never call each other. On a Checker LOOP verdict the Orchestrator may build a new MAKE input: the unchanged `raw_seed`, the same `plan_ref`, and an `authorized_step` for the failing step whose `scope` is narrowed to the Checker's failing checks. Each revision needs a new `authorization_ref` from the user or an approval control and never enlarges the scope. Revisions are capped by `maxRevisions` (default 2, hard cap 3). Each revised receipt goes to a fresh read-only Checker. Stop as `partial` when the cap is reached or two consecutive LOOP verdicts cite the same failing checks. A HALT verdict stops at once. Reflect runs after PASS or after a terminal LOOP or HALT record.
 
 ## Output states
 
-Use `TRUE_INTENT_READY`, `PLAN_READY`, `STEP_EXECUTED`, `CHECK_PASS`, `REFLECTED`, `PARTIAL`, `BLOCKED`, and `UNEXECUTED` with evidence and owner. Never infer a later lifecycle state from catalog discovery or command resolution.
+Use `TRUE_INTENT_READY`, `PLAN_READY`, `STEP_EXECUTED`, `CHECK_PASS`, `REFLECTED`, `REVISION_REQUESTED`, `PARTIAL`, `BLOCKED`, and `UNEXECUTED` with evidence and owner. Never infer a later lifecycle state from catalog discovery or command resolution.
 
 
 ## Hub-and-spoke handoff mapping
