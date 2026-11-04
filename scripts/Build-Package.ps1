@@ -2,7 +2,7 @@ param(
     [string]$Repo = (Split-Path -Parent $PSScriptRoot),
     [string]$OutDir = (Join-Path (Split-Path -Parent $PSScriptRoot) 'dist')
 )
-# Builds an Agent Plugins 1.0 package for the orchestrator plugin (seed skill only).
+# Builds an Agent Plugins 1.0 package for the orchestrator plugin (orchestrate skill only).
 # Sources are never modified: a staged copy is patched so every path stays inside the package.
 $ErrorActionPreference = 'Stop'
 $utf8 = New-Object System.Text.UTF8Encoding($false)
@@ -18,21 +18,19 @@ $manifest = [ordered]@{
     version     = $meta.version
     description = $meta.description
 }
-[IO.File]::WriteAllText("$stage\plugin.json", (($manifest | ConvertTo-Json) + "`n"), $utf8)
+[IO.File]::WriteAllText("$stage\plugin.json", (($manifest | ConvertTo-Json) + [Environment]::NewLine), $utf8)
 
-# 2. the seed skill, plus vendored copies of the files it reads from outside the plugin dir
+# 2. the orchestrate skill, plus vendored copies of the files it reads from outside the plugin dir
 Copy-Item (Join-Path $src 'skills') "$stage\skills" -Recurse
-$ref = "$stage\skills\seed\references"
+$ref = "$stage\skills\orchestrate\references"
 Copy-Item (Join-Path $Repo 'schemas\phase-reply.schema.json') "$ref\phase-reply.schema.json"
-Copy-Item (Join-Path $Repo 'docs\handoff-contract.md')        "$ref\project-handoff-contract.md"
-Copy-Item (Join-Path $Repo 'providers\pmcro-agent-marketplace.json') "$ref\pmcro-agent-marketplace.json"
+Copy-Item (Join-Path $Repo 'docs\handoff-contract.md') "$ref\project-handoff-contract.md"
 
 function Patch($path, $from, $to) {
     $t = [IO.File]::ReadAllText($path)
     if (-not $t.Contains($from)) { throw "Patch target not found in $path : $from" }
     [IO.File]::WriteAllText($path, $t.Replace($from, $to), $utf8)
 }
-Patch "$stage\skills\seed\SKILL.md" '`../../../../providers/pmcro-agent-marketplace.json`' '`references/pmcro-agent-marketplace.json`'
 Patch "$ref\handoff-contract.md" '(../../../../../docs/handoff-contract.md)' '(project-handoff-contract.md)'
 Patch "$ref\output.schema.json" '../../../../../../schemas/phase-reply.schema.json' 'phase-reply.schema.json'
 
@@ -40,10 +38,10 @@ Patch "$ref\output.schema.json" '../../../../../../schemas/phase-reply.schema.js
 $problems = @()
 Get-ChildItem $stage -Recurse -Filter *.json | ForEach-Object { try { Get-Content $_.FullName -Raw | ConvertFrom-Json | Out-Null } catch { $problems += "invalid JSON: $($_.FullName)" } }
 Get-ChildItem $stage -Recurse -File -Include SKILL.md,*.schema.json,handoff-contract.md | ForEach-Object {
-    if ((Get-Content $_.FullName -Raw) -match '\(\.\./|"\$ref":\s*"\.\./|`\.\./') { $problems += "path escapes package: $($_.FullName.Replace($stage,''))" }
+    if ((Get-Content $_.FullName -Raw) -match '(\.\./|"\$ref":\s*"\.\./)') { $problems += "path escapes package: $($_.FullName.Replace($stage,''))" }
 }
-$skill = Get-Content "$stage\skills\seed\SKILL.md" -Raw
-if ($skill -notmatch '(?m)^name: seed$') { $problems += 'SKILL.md name is not seed' }
+$skill = Get-Content "$stage\skills\orchestrate\SKILL.md" -Raw
+if ($skill -notmatch '(?m)^name: orchestrate$') { $problems += 'SKILL.md name is not orchestrate' }
 if (-not (Test-Path "$stage\plugin.json")) { $problems += 'missing plugin.json' }
 if (Test-Path "$stage\agents") { $problems += 'unexpected agents/' }
 if (Test-Path "$stage\commands") { $problems += 'unexpected commands/' }

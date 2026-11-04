@@ -8,8 +8,8 @@ The repository was initialized locally at `G:\orchestrator-agent`. Its one MAF-n
 
 ## Command
 
-- `/orchestrator:seed` accepts the raw seed directly.
-- The plugin ships exactly one skill (`seed`) and one command (`/orchestrator:seed`).
+- `/orchestrator:orchestrate` accepts the raw seed directly.
+- The plugin ships exactly one skill (`orchestrate`) and one command (`/orchestrator:orchestrate`).
 - The PMCR-O provider catalog maps `/pmcro:orchestrate`, `/pmcro:plan`, `/pmcro:make`, `/pmcro:check`, and `/pmcro:reflect` to separate marketplace agents and their skills.
 
 The host supplies actual agent invocation. `scripts/Resolve-Agent.ps1` selects a catalog entry only when the host reports that agent as available. It returns a route; it does not invoke an agent, action, model, or MCP tool.
@@ -24,6 +24,6 @@ Preserve the user's raw seed exactly. Pass the full message context to the catal
 - `providers/pmcro-agent-marketplace.json` points to the separate PMCR-O agent repository/catalog.
 - `schemas/` defines the typed seed and handoff envelopes.
 - `scripts/` resolves catalog entries and validates envelope structure.
-- `plugins/orchestrator/skills/seed/` contains the MAF-native skill candidate.
+- `plugins/orchestrator/skills/orchestrate/` contains the MAF-native skill candidate.
 
 See [architecture](docs/architecture.md) and [handoff contract](docs/handoff-contract.md).

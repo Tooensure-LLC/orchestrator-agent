@@ -10,7 +10,7 @@
       "phase": "ORCHESTRATE",
       "agentId": "orchestrator",
       "commandAlias": "/pmcro:orchestrate",
-      "hostSkillId": "orchestrator:seed",
+      "hostSkillId": "orchestrator:orchestrate",
       "pluginMention": "[@orchestrator](plugin://orchestrator@orchestrator-agent)",
       "inputSchema": "../pmcro-agent/plugins/pmcro/skills/orchestrate/references/input.schema.json",
       "outputSchema": "../pmcro-agent/plugins/pmcro/skills/orchestrate/references/output.schema.json",

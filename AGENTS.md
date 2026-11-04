@@ -1,7 +1,7 @@
 # Repository instructions
 
-- The `orchestrator` plugin (repo `orchestrator-agent`) has exactly one capability: ORCHESTRATE, exposed as one skill (`seed`) and one command (`/orchestrator:seed`).
-- `/orchestrator:seed` is the only entry point and accepts the user's raw seed directly. Do not add other skills or commands to this plugin.
+- The `orchestrator` plugin (repo `orchestrator-agent`) has exactly one capability: ORCHESTRATE, exposed as one skill (`orchestrate`) and one command (`/orchestrator:orchestrate`).
+- `/orchestrator:orchestrate` is the only entry point and accepts the user's raw seed directly. Do not add other skills or commands to this plugin.
 - Resolve true intent by invoking the selected Orchestrate agent from the configured PMCR-O marketplace catalog with the full available user-message context.
 - Resolve role agents through the catalog; pass one bounded handoff at a time in ORCHESTRATE, PLAN, MAKE, CHECK, REFLECT order.
 - A catalog listing is not invocation, execution, authority, registration, grant, or activation.

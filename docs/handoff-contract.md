@@ -2,7 +2,7 @@
 
 ## Initial call
 
-Invoke `/orchestrator:seed` with the user's exact messy seed and the full available message/thread context. Do not ask for a normalized seed first and do not rewrite `raw_seed`.
+Invoke `/orchestrator:orchestrate` with the user's exact messy seed and the full available message/thread context. Do not ask for a normalized seed first and do not rewrite `raw_seed`.
 
 The Orchestrator resolves `orchestrator` from the configured agent catalog and calls `/pmcro:orchestrate` (or the catalogued canonical host command) with `{ raw_seed, context }`. That independent agent returns `true_intent`, assumptions, flags, unresolved questions, and evidence/context references. If the agent is unavailable, return `BLOCKED`; do not guess true intent.
 

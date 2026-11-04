@@ -1,4 +1,4 @@
-> Deferred: not part of the orchestrator plugin, which ships only the seed skill and command.
+> Deferred: not part of the orchestrator plugin, which ships only the orchestrate skill and command.
 
 # Approval and rejection controls
 

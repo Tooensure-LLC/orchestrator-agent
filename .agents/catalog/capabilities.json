@@ -3,6 +3,6 @@
   "format": "orchestrator-agent.capabilities/v1",
   "providerNeutral": true,
   "capabilities": [
-    { "id": "core.orchestrate", "phase": "ORCHESTRATE", "skillId": "orchestrator:seed", "command": "/orchestrator:seed", "agentId": "orchestrator" }
+    { "id": "core.orchestrate", "phase": "ORCHESTRATE", "skillId": "orchestrator:orchestrate", "command": "/orchestrator:orchestrate", "agentId": "orchestrator" }
   ]
 }

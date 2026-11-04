@@ -1,6 +1,6 @@
 # Input and output contract
 
-The skill command takes exactly one typed object conforming to `input.schema.json`: the verbatim `raw_seed` plus the complete relevant `full_context`. This is the only skill; the raw seed goes straight to `/orchestrator:seed`.
+The skill command takes exactly one typed object conforming to `input.schema.json`: the verbatim `raw_seed` plus the complete relevant `full_context`. This is the only skill; the raw seed goes straight to `/orchestrator:orchestrate`.
 
 The result follows `output.schema.json`, the PMCR-O output envelope: identity, phase/execution state, typed input and output, accept/deny conditions, evidence references, and an explicit next handoff. Human-readable text is only a projection of this envelope.
 
