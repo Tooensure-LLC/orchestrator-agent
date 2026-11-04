@@ -1,0 +1,16 @@
+{
+    "format":  "orchestrator-agent.plugin-candidate/v1",
+    "plugin":  "orchestrator",
+    "runtime":  "maf-native-agent-skills",
+    "registrationState":  "candidate",
+    "granted":  false,
+    "activated":  false,
+    "capabilities":  [
+                         "ORCHESTRATE"
+                     ],
+    "commandCatalog":  "../commands/commands.json",
+    "marketplaceCatalog":  "../../providers/pmcro-agent-marketplace.json",
+    "agents":  [
+                   "plugins/orchestrator/agents/orchestrator.agent.md"
+               ]
+}

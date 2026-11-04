@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Orchestrator text-control result",
+  "type": "object",
+  "required": ["status", "target_message_id", "next_handoff"],
+  "properties": {
+    "status": { "enum": ["APPROVED", "REJECTED", "BLOCKED"] },
+    "target_message_id": { "type": "string", "minLength": 1 },
+    "next_handoff": { "enum": ["RELEASED", "BLOCKED", "CORRECTION_REQUESTED"] },
+    "reason": { "type": "string" }
+  },
+  "additionalProperties": false
+}

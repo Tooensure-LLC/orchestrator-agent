@@ -1,0 +1,7 @@
+{
+  "format": "orchestrator-agent.provider-alias/v1",
+  "providerId": "pmcro-release7",
+  "catalogRef": "pmcro-agent-marketplace.json",
+  "optional": true,
+  "coreDependency": false
+}

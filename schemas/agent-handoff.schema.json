@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded agent handoff",
+  "type": "object",
+  "required": ["format", "runId", "phase", "agentId", "goal", "parentMessageId", "depth", "maxDepth", "inputRefs", "expectedOutput"],
+  "properties": {
+    "format": { "const": "orchestrator-agent.handoff/v1" },
+    "runId": { "type": "string" },
+    "phase": { "enum": ["ORCHESTRATE", "PLAN", "MAKE", "CHECK", "REFLECT"] },
+    "agentId": { "type": "string" },
+    "goal": { "type": "string" },
+    "parentMessageId": { "type": "string" },
+    "depth": { "type": "integer", "minimum": 0 },
+    "maxDepth": { "type": "integer", "minimum": 0 },
+    "inputRefs": { "type": "array", "items": { "type": "string" } },
+    "expectedOutput": { "type": "string" },
+    "terminalOperation": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}

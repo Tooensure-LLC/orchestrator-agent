@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Orchestrator Agent command catalog",
+  "type": "object",
+  "required": ["format", "commands"],
+  "properties": {
+    "format": { "const": "orchestrator-agent.commands/v1" },
+    "commands": { "type": "array", "items": { "type": "object", "required": ["command", "skillId", "agentId", "entrypoint", "inputMode", "inputSchema", "outputSchema", "trailKind", "purpose"], "properties": { "command": { "type": "string" }, "skillId": { "type": "string" }, "agentId": { "type": "string" }, "entrypoint": { "type": "string" }, "inputMode": { "enum": ["typed-json", "plain-text"] }, "inputSchema": { "type": "string", "minLength": 1 }, "outputSchema": { "type": "string", "minLength": 1 }, "apiReplySchema": { "type": "string", "minLength": 1 }, "trailKind": { "type": "string", "minLength": 1 }, "purpose": { "type": "string" } }, "additionalProperties": false } }
+  },
+  "additionalProperties": false
+}

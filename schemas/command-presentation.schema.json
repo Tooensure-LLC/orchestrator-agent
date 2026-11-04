@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pre-action plugin command text projection",
+  "type": "object",
+  "required": ["format", "phase", "plugin_mention", "identity_line", "command", "input", "dispatch_state"],
+  "properties": {
+    "format": { "const": "pmcro.command-presentation/v1" },
+    "phase": { "enum": ["ORCHESTRATE", "PLAN", "MAKE", "CHECK", "REFLECT"] },
+    "plugin_mention": { "type": "string", "pattern": "^\\[@[a-z0-9-]+\\]\\(plugin://[a-z0-9-]+@pmcro-agent\\)$" },
+    "identity_line": { "type": "string", "pattern": "^I AM the .+ Agent\\..+" },
+    "command": { "type": "string", "pattern": "^/pmcro:(orchestrate|plan|make|check|reflect)$" },
+    "input": { "type": "object", "required": ["raw_seed"], "properties": { "raw_seed": { "type": "string", "minLength": 1 } }, "additionalProperties": true },
+    "dispatch_state": { "enum": ["READY", "NOT_DISPATCHED", "BLOCKED"] }
+  },
+  "additionalProperties": false
+}

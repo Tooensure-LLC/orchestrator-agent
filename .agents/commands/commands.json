@@ -1,0 +1,7 @@
+{
+  "$schema": "../../schemas/command-catalog.schema.json",
+  "format": "orchestrator-agent.commands/v1",
+  "commands": [
+    { "command": "/orchestrator:seed", "skillId": "orchestrator:seed", "agentId": "orchestrator", "entrypoint": "plugins/orchestrator/skills/seed/SKILL.md", "inputMode": "typed-json", "inputSchema": "plugins/orchestrator/skills/seed/references/input.schema.json", "outputSchema": "plugins/orchestrator/skills/seed/references/output.schema.json", "apiReplySchema": "schemas/phase-reply.schema.json", "trailKind": "orchestrator.route", "purpose": "Accept a messy seed, resolve true intent through the agent catalog, and coordinate bounded handoffs." }
+  ]
+}

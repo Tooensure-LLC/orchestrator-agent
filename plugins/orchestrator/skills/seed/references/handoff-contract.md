@@ -1,0 +1,1 @@
+Read [the project handoff contract](../../../../../docs/handoff-contract.md) for input, phase order, typed handoffs, status vocabulary, and stop rules. The skill must load this reference before attempting an agent route.

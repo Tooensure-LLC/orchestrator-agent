@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Orchestrator Agent structured command message",
+  "type": "object",
+  "required": ["format", "messageId", "runId", "type", "actor", "role", "command", "status", "body"],
+  "properties": {
+    "format": { "const": "orchestrator-agent.command-message/v1" },
+    "messageId": { "type": "string", "minLength": 1 },
+    "runId": { "type": "string", "minLength": 1 },
+    "parentMessageId": { "type": ["string", "null"] },
+    "type": { "enum": ["COMMAND", "RESULT", "APPROVAL", "REJECTION"] },
+    "actor": { "enum": ["user", "orchestrator-agent", "catalog-agent"] },
+    "role": { "enum": ["orchestrator", "planner", "maker", "checker", "reflector", "user"] },
+    "command": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "minLength": 1 },
+    "body": { "type": "object" },
+    "evidenceRefs": { "type": "array", "items": { "type": "string" } },
+    "control": { "type": "object", "properties": { "targetMessageId": { "type": "string" }, "decision": { "enum": ["approve", "reject"] }, "reason": { "type": "string" }, "effect": { "enum": ["release-next-phase", "request-correction", "halt-run"] } }, "required": ["targetMessageId", "decision", "effect"], "additionalProperties": false }
+  },
+  "additionalProperties": false
+}

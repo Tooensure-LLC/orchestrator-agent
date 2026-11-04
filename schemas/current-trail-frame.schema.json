@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProjectName current development TrailFrame projection",
+  "type": "object",
+  "required": ["trailId", "phase", "evidenceReference", "previousDigest", "recordedAt", "digest"],
+  "properties": {
+    "trailId": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "phase": { "enum": ["Orchestrate", "Plan", "Make", "Check", "Reflect"] },
+    "evidenceReference": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "previousDigest": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "recordedAt": { "type": "string", "format": "date-time" },
+    "digest": { "type": "string", "minLength": 1, "maxLength": 128 }
+  },
+  "additionalProperties": false
+}

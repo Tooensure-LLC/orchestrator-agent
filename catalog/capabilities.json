@@ -1,0 +1,9 @@
+{
+  "$schema": "../schemas/capability-catalog.schema.json",
+  "format": "orchestrator-agent.capabilities/v1",
+  "providerNeutral": true,
+  "capabilities": [
+    { "id": "core.orchestrate", "phase": "ORCHESTRATE", "skillId": "orchestrator:seed", "command": "/orchestrator:seed", "agentId": "orchestrator" }
+  ],
+  "externalAgentCatalog": "../pmcro-agent/catalog/agents.json"
+}

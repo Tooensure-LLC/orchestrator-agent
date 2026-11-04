@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Text approval parsed by the control adapter",
+  "type": "object",
+  "required": ["run_id", "target_message_id", "actor_id"],
+  "properties": {
+    "run_id": { "type": "string", "minLength": 1 },
+    "target_message_id": { "type": "string", "minLength": 1 },
+    "actor_id": { "type": "string", "minLength": 1 },
+    "reason": { "type": "string" }
+  },
+  "additionalProperties": false
+}

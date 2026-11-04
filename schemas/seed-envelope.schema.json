@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Orchestrator Agent input and true-intent handoff",
+  "type": "object",
+  "required": ["format", "raw_seed", "full_context", "true_intent", "assumptions", "flags"],
+  "properties": {
+    "format": { "const": "orchestrator-agent.seed-envelope/v1" },
+    "raw_seed": { "type": "string", "minLength": 1 },
+    "full_context": { "type": "string", "minLength": 1 },
+    "true_intent": { "type": "string", "minLength": 1 },
+    "context_sources": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "flags": { "type": "array", "items": { "type": "string" } },
+    "unresolved_questions": { "type": "array", "items": { "type": "string" } },
+    "resolved_by_agent_id": { "type": "string" }
+  },
+  "additionalProperties": false
+}

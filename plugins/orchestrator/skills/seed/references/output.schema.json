@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Orchestrator Agent output envelope",
+  "type": "object",
+  "required": ["format", "identity", "execution", "contract", "handoff"],
+  "properties": {
+    "format": { "const": "pmcro.skill-output-envelope/v1" },
+    "identity": {
+      "type": "object",
+      "required": ["message_id", "trace_id", "parent_message_id", "from", "to"],
+      "properties": { "message_id": { "type": "string" }, "trace_id": { "type": "string" }, "parent_message_id": { "type": ["string", "null"] }, "from": { "type": "string" }, "to": { "type": "string" } },
+      "additionalProperties": false
+    },
+    "execution": {
+      "type": "object",
+      "required": ["phase", "mode", "status", "simulation", "verified", "evidence_tier"],
+      "properties": { "phase": { "const": "ORCHESTRATE" }, "mode": { "enum": ["simulation", "runtime"] }, "status": { "enum": ["complete", "blocked", "halted", "partial"] }, "simulation": { "type": "boolean" }, "verified": { "type": "boolean" }, "evidence_tier": { "type": "string" } },
+      "additionalProperties": false
+    },
+    "contract": {
+      "type": "object",
+      "required": ["input", "output", "accept", "deny", "evidence"],
+      "properties": { "input": { "type": "object" }, "output": { "type": "object" }, "accept": { "type": "string" }, "deny": { "type": "string" }, "evidence": { "type": "array", "items": { "type": "string" } } },
+      "additionalProperties": false
+    },
+    "handoff": {
+      "type": "object",
+      "required": ["next"],
+      "properties": { "next": { "type": "object", "required": ["action", "unexecuted"], "properties": { "action": { "type": "string" }, "unexecuted": { "type": "boolean" }, "seed_level": { "type": "string" } }, "additionalProperties": false } },
+      "additionalProperties": false
+    },
+    "api_reply": { "$ref": "../../../../../../schemas/phase-reply.schema.json" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PMCR-O role-owned append-only message frame",
+  "type": "object",
+  "required": ["frame_id", "trail_id", "cycle_id", "seq", "role", "kind", "parent_id", "prev_hash", "hash", "status", "payload"],
+  "properties": {
+    "frame_id": { "type": "string", "minLength": 1 },
+    "trail_id": { "type": "string", "minLength": 1 },
+    "cycle_id": { "type": "string", "minLength": 1 },
+    "seq": { "type": "integer", "minimum": 1 },
+    "role": { "enum": ["orchestrator", "planner", "maker", "checker", "reflector"] },
+    "kind": { "enum": ["orchestrator.route", "planner.plan", "maker.result", "checker.verdict", "reflector.reflect", "orchestrator.control.approval", "orchestrator.control.rejection"] },
+    "parent_id": { "type": ["string", "null"] },
+    "prev_hash": { "type": ["string", "null"] },
+    "hash": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["open", "complete", "blocked", "halted"] },
+    "payload": { "type": "object", "required": ["raw_seed"], "properties": { "raw_seed": { "type": "string", "minLength": 1 } }, "additionalProperties": true }
+  },
+  "additionalProperties": false
+}

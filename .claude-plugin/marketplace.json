@@ -1,0 +1,16 @@
+{
+  "name": "orchestrator-agent",
+  "owner": {
+    "name": "Tooensure"
+  },
+  "metadata": {
+    "description": "Marketplace for the generic PMCR-O orchestrator plugin."
+  },
+  "plugins": [
+    {
+      "name": "orchestrator",
+      "source": "./plugins/orchestrator",
+      "description": "Generic provider-neutral orchestrator. One seed skill and command (/orchestrator:seed) route a raw seed through the PMCR-O agent catalog."
+    }
+  ]
+}

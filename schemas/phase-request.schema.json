@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProjectName PhaseWorker.Execute request projection",
+  "type": "object",
+  "required": ["trail_id", "actor_id", "capability_id", "phase", "payload"],
+  "properties": {
+    "trail_id": { "type": "string", "minLength": 1 },
+    "actor_id": { "type": "string", "minLength": 1 },
+    "capability_id": { "type": "string", "minLength": 1 },
+    "phase": { "enum": ["ORCHESTRATE", "PLAN", "MAKE", "CHECK", "REFLECT"] },
+    "payload": { "type": "string", "contentMediaType": "application/json" }
+  },
+  "additionalProperties": false
+}

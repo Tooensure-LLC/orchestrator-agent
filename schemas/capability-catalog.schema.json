@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Provider-neutral Orchestrator Agent capability catalog",
+  "type": "object",
+  "required": ["format", "providerNeutral", "capabilities"],
+  "properties": {
+    "format": { "const": "orchestrator-agent.capabilities/v1" },
+    "providerNeutral": { "const": true },
+    "capabilities": { "type": "array", "items": { "type": "object", "required": ["id", "phase", "skillId", "command", "agentId"], "properties": { "id": { "type": "string" }, "phase": { "const": "ORCHESTRATE" }, "skillId": { "type": "string" }, "command": { "type": "string" }, "agentId": { "type": "string" } }, "additionalProperties": false } }
+  },
+  "additionalProperties": false
+}

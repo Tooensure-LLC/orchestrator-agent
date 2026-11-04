@@ -1,0 +1,16 @@
+{
+  "format": "orchestrator-agent.seed-envelope/v1",
+  "raw_seed": "some speech-to-text right now",
+  "full_context": "The user asked to work on speech-to-text now. No platform, language, privacy, hosting, or integration requirements were provided.",
+  "true_intent": "Determine or build a speech-to-text capability for the user's current goal, using only requirements stated in the full context and surfacing missing choices before implementation.",
+  "context_sources": ["current user message"],
+  "assumptions": [],
+  "flags": [],
+  "unresolved_questions": [
+    "Which app or platform should receive speech-to-text?",
+    "Which spoken languages and transcription quality are required?",
+    "Must audio remain local, or is hosted service acceptable?",
+    "Should the next step be research, prototype, or production implementation?"
+  ],
+  "resolved_by_agent_id": "example-only"
+}

@@ -1,0 +1,6 @@
+{
+  "format": "orchestrator-agent.plugin-commands/v1",
+  "commands": [
+    { "command": "/orchestrator:seed", "skill": "seed", "capability": "ORCHESTRATE", "inputMode": "typed-json", "inputSchema": "skills/seed/references/input.schema.json", "outputSchema": "skills/seed/references/output.schema.json", "apiReplySchema": "../../schemas/phase-reply.schema.json", "trailKind": "orchestrator.route" }
+  ]
+}

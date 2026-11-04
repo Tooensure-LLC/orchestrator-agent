@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Orchestrator Agent invocation input",
+  "type": "object",
+  "required": ["raw_seed", "full_context"],
+  "properties": {
+    "raw_seed": { "type": "string", "minLength": 1, "description": "Exact user text; preserve byte-for-byte where transport permits." },
+    "full_context": { "type": "string", "minLength": 1, "description": "Full relevant user-message context available to the host." }
+  },
+  "additionalProperties": false
+}
