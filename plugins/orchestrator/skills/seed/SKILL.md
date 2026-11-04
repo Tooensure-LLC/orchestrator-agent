@@ -27,7 +27,7 @@ When FORCE applies or AUTO selects this workflow, state a compact brief before r
 
 ## Design pattern
 
-This is the orchestrator-workers pattern: this skill decomposes the goal and delegates to role agents, and it never does their work. PLAN to MAKE to CHECK is a gated chain. CHECK is an independent evaluator whose LOOP verdict returns work to MAKE within the depth limit. REFLECT proposes the next seed and never executes it. Use the simplest route that meets the brief.
+Hub-and-spoke: this skill is the only delegator (orchestrator-workers). Roles never call each other; each returns its result here and this skill builds the next input. The fixed order PLAN, MAKE, CHECK, REFLECT is a prompt chain with a gate: any non-PASS Checker result stops the cycle. CHECK is an independent evaluator. REFLECT proposes the next seed, which stays unexecuted until a new cycle is started. Use the simplest route that meets the brief.
 ## Required pre-action message
 
 Before routing work, emit the PMCR-O plugin mention first, then identify the role and intent, then print the namespaced command with its typed input. For example:
