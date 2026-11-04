@@ -1,16 +1,16 @@
 {
-  "name": "orchestrator-agent",
-  "owner": {
-    "name": "Tooensure"
-  },
-  "interface": {
-    "displayName": "Orchestrator Agent"
-  },
-  "plugins": [
-    {
-      "name": "orchestrator",
-      "source": "./plugins/orchestrator",
-      "description": "Generic provider-neutral orchestrator. One seed skill and command (/orchestrator:seed) route a raw seed through the PMCR-O agent catalog."
-    }
-  ]
+    "name":  "orchestrator-agent",
+    "owner":  {
+                  "name":  "Tooensure"
+              },
+    "interface":  {
+                      "displayName":  "Orchestrator Agent"
+                  },
+    "plugins":  [
+                    {
+                        "name":  "pmcro-orchestrator",
+                        "source":  "./plugins/orchestrator",
+                        "description":  "PMCR-O Orchestrator — routes a raw seed through the full PLAN/MAKE/CHECK/REFLECT cycle via the PMCR-O agent catalog."
+                    }
+                ]
 }

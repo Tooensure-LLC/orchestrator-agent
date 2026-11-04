@@ -7,7 +7,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 $src = Join-Path $Repo 'plugins\orchestrator'
-$meta = Get-Content (Join-Path $src 'plugin.json') -Raw | ConvertFrom-Json
+$meta = Get-Content (Join-Path $src 'plugin.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $stage = Join-Path $env:TEMP ("orchestrator-stage-" + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $stage | Out-Null
 
@@ -52,7 +52,7 @@ if ($problems.Count) { $problems | ForEach-Object { Write-Error $_ -ErrorAction 
 
 # 4. zip with forward-slash entry names, plugin.json at archive root
 New-Item -ItemType Directory -Force $OutDir | Out-Null
-$zipPath = Join-Path $OutDir ("$($meta.name)-$($meta.version).zip")
+$zipPath = Join-Path $OutDir "orchestrator-agent.zip"
 if (Test-Path $zipPath) { Remove-Item $zipPath -Force }
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem

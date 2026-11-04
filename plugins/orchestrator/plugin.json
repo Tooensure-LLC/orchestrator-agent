@@ -1,6 +1,9 @@
 {
     "$schema":  "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-    "name":  "orchestrator",
+    "name":  "pmcro-orchestrator",
     "version":  "0.2.0",
-    "description":  "Generic provider-neutral orchestrator. One seed skill and one seed command route a raw seed through the PMCR-O agent catalog."
+    "description":  "PMCR-O Orchestrator — routes a raw seed through the full PLAN/MAKE/CHECK/REFLECT cycle via the PMCR-O agent catalog.",
+    "interface":  {
+                      "displayName":  "PMCR-O Orchestrator"
+                  }
 }
